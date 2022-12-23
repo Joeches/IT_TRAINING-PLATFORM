@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ lesson.title }}</h1>
+    <p>Course: <a href="{% url 'courses:course_detail' slug=lesson.course.slug %}">{{ lesson.course }}</a></p>
+    <p>{{ lesson.description }}</p>
+    <video src="{{ lesson.video_url }}" controls></video>
+    {% if user.is_authenticated %}
+        {% if not user.completedlesson_set.filter(lesson=lesson).exists %}
+        <a href="{% url 'courses:complete_lesson' course_slug=lesson.course.slug lesson_slug=lesson.slug %}">Mark as completed</a>
+        {% endif %}
+    {% endif %}
+{% endblock %}

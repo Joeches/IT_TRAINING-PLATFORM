@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ course.name }}</h1>
+    <p>Instructor: {{ course.instructor }}</p>
+    <p>{{ course.description }}</p>
+    {% if user.is_authenticated %}
+        {% if not user.enrollment_set.filter(course=course).exists %}
+        <a href="{% url 'courses:enroll' slug=course.slug %}">Enroll in this course</a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}">Log in to enroll in this course</a>
+    {% endif %}
+    <h2>Lessons</h2>
+    <ul>

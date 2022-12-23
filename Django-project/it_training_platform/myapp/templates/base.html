@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <head>
+        <title>IT Training Platform</title>
+    </head>
+    <body>
+        <header>
+            <h1>IT Training Platform</h1>
+            {% if user.is_authenticated %}
+            <p>Logged in as {{ user.username }}</p>
+            <a href="{% url 'logout' %}">Log out</a>
+            {% else %}
+            <a href="{% url 'login' %}">Log in</a>
+            {% endif %}
+        </header>
+        {% block content %}{% endblock %}
+    </body>
+</html>
